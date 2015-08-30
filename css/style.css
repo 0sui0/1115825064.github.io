@@ -865,7 +865,7 @@ a {
   margin: 30px;
   position: relative;
   border: 1px solid #ddd;
-  background: #fff;
+  background: #999;
   -webkit-transition: all 0.2s ease-in;
 }
 .article.show {
