@@ -106,7 +106,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/动态规划/" style="font-size: 20px;">动态规划</a> <a href="/tags/奇怪的东西/" style="font-size: 10px;">奇怪的东西</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/数论/" style="font-size: 10px;">数论</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+						<a href="/tags/动态规划/" style="font-size: 20px;">动态规划</a> <a href="/tags/奇怪的东西/" style="font-size: 10px;">奇怪的东西</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/数论/" style="font-size: 10px;">数论</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/线段树/" style="font-size: 10px;">线段树</a>
 					</div>
 				</section>
 				
@@ -169,6 +169,64 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-BZOJ2957" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/22/BZOJ2957/" class="article-date">
+  	<time datetime="2015-11-22T03:25:06.000Z" itemprop="datePublished">2015-11-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/22/BZOJ2957/">bzoj 2957</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>小A的楼房外有一大片施工工地，工地上有N栋待建的楼房。每天，这片工地上的房子拆了又建、建了又拆。他经常无聊地看着窗外发呆，数自己能够看到多少栋房子。<br>　　为了简化问题，我们考虑这些事件发生在一个二维平面上。小A在平面上(0,0)点的位置，第i栋楼房可以用一条连接(i,0)和(i,Hi)的线段表示，其中Hi为第i栋楼房的高度。如果这栋楼房上任何一个高度大于0的点与(0,0)的连线没有与之前的线段相交，那么这栋楼房就被认为是可见的。<br>　　施工队的建造总共进行了M天。初始时，所有楼房都还没有开始建造，它们的高度均为0。在第i天，建筑队将会将横坐标为Xi的房屋的高度变为Yi(高度可以比原来大—修建，也可以比原来小—拆除，甚至可以保持不变—建筑队这天什么事也没做)。请你帮小A数数每天在建筑队完工之后，他能看到多少栋楼房？<br><!--moer--><br>题目就是动态维护最长的上升子序列的长度。<br>用动态树每个节点维护当前节点区间内的最大值和最长上升序列的长度。<br>两个节点的合并：max可以直接和，长度会有交叉的可能不能简单合并。<br>合并长度时左子树自然可以直接加上，右子树要去掉比左边低的部分。因为可以看到的楼tan单增所以用把右子树分开讨论，若左半边大于左子树的最大值，则右半边对答案贡献不变，加上右半边的值（ <strong>这个地方需要注意右边的贡献值是之前处理过的  右子树减去重复部分的值  应用当前的sum值减左子树的sum值</strong> 然后递归左边。若小于最大值，则说明左边无贡献，递归右边。</p>
+<p>上代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100010</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> T&#123;</span><br><span class="line">	<span class="keyword">int</span> l,r,sum;</span><br><span class="line">	<span class="keyword">double</span> mx;</span><br><span class="line">&#125;tr[N*<span class="number">4</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> wz,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	tr[wz].l=l,tr[wz].r=r,tr[wz].sum=<span class="number">0</span>,tr[wz].mx=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(l==r) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">	build(wz&lt;&lt;<span class="number">1</span>,l,mid);</span><br><span class="line">	build(wz&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">su</span><span class="params">(<span class="keyword">int</span> wz,<span class="keyword">double</span> mm)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ss=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(tr[wz].l==tr[wz].r) <span class="keyword">return</span> tr[wz].mx&gt;mm;</span><br><span class="line">	<span class="keyword">if</span>(mm&gt;tr[wz].mx) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(mm&lt;tr[wz&lt;&lt;<span class="number">1</span>].mx) <span class="keyword">return</span> su(wz&lt;&lt;<span class="number">1</span>,mm)+tr[wz].sum-tr[wz&lt;&lt;<span class="number">1</span>].sum;</span><br><span class="line">	<span class="keyword">return</span> su(wz&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mm);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ch</span><span class="params">(<span class="keyword">int</span> wz,<span class="keyword">int</span> ii,<span class="keyword">double</span> w)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tr[wz].l==tr[wz].r) </span><br><span class="line">	&#123;</span><br><span class="line">		tr[wz].mx=w,tr[wz].sum=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> mid=(tr[wz].l+tr[wz].r)/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(ii&lt;=mid) ch(wz&lt;&lt;<span class="number">1</span>,ii,w);</span><br><span class="line">	<span class="keyword">else</span> ch(wz&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,ii,w);</span><br><span class="line">	tr[wz].mx=max(tr[wz&lt;&lt;<span class="number">1</span>].mx,tr[wz&lt;&lt;<span class="number">1</span>|<span class="number">1</span>].mx);</span><br><span class="line">	tr[wz].sum=tr[wz&lt;&lt;<span class="number">1</span>].sum+su(wz&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,tr[wz&lt;&lt;<span class="number">1</span>].mx);</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("1.txt","r",stdin);</span></span><br><span class="line"><span class="comment">//	freopen("11.txt","w",stdout);</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	build(<span class="number">1</span>,<span class="number">1</span>,n);</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;x,&amp;y);</span><br><span class="line">		ch(<span class="number">1</span>,x,(<span class="keyword">double</span>)y/x);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,tr[<span class="number">1</span>].sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意数据类型别错。别问我为什么说这个。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线段树/">线段树</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-exgcd" class="article article-type-post" itemscope itemprop="blogPost">
   
