@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>sui</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: 半平面交date: 2016-03-07 09:05:05tags:计算几何相当于数学课本上线性规划一类的东西……用向量来表示一个半平面，做法和凸包类似。先按照夹角排序，之后依次加入就行了。假如新加入的平面会覆盖前两个向量的交点，那么它一定会覆盖掉前一条边界（因为之前按夹角排过序了）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sui">
+<meta property="og:url" content="http://yoursite.com/2016/03/07/半平面交/index.html">
+<meta property="og:site_name" content="sui">
+<meta property="og:description" content="title: 半平面交date: 2016-03-07 09:05:05tags:计算几何相当于数学课本上线性规划一类的东西……用向量来表示一个半平面，做法和凸包类似。先按照夹角排序，之后依次加入就行了。假如新加入的平面会覆盖前两个向量的交点，那么它一定会覆盖掉前一条边界（因为之前按夹角排过序了）。">
+<meta property="og:updated_time" content="2016-03-07T01:41:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sui">
+<meta name="twitter:description" content="title: 半平面交date: 2016-03-07 09:05:05tags:计算几何相当于数学课本上线性规划一类的东西……用向量来表示一个半平面，做法和凸包类似。先按照夹角排序，之后依次加入就行了。假如新加入的平面会覆盖前两个向量的交点，那么它一定会覆盖掉前一条边界（因为之前按夹角排过序了）。">
+  
+    <link rel="alternative" href="/atom.xml" title="sui" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="my/tou.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="my/tou.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">sui</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">高贵的单身狗</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友链</li>
+						
+						
+						<li>不要看</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/动态规划/" style="font-size: 20px;">动态规划</a> <a href="/tags/奇怪的东西/" style="font-size: 10px;">奇怪的东西</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/数论/" style="font-size: 10px;">数论</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/线段树/" style="font-size: 10px;">线段树</a> <a href="/tags/计算几何/" style="font-size: 15px;">计算几何</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gcjh.github.io">c逗逼</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/CXCXCXC/">cxcxc</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://fancypei.github.io">pyf</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">不让你看你偏看，这里什么都没有~</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">sui</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="my/tou.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">sui</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">高贵的单身狗</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-半平面交" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/07/半平面交/" class="article-date">
+  	<time datetime="2016-03-07T01:05:05.000Z" itemprop="datePublished">2016-03-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: 半平面交<br>date: 2016-03-07 09:05:05<br>tags:计算几何<br>相当于数学课本上线性规划一类的东西……<br>用向量来表示一个半平面，做法和凸包类似。先按照夹角排序，<br>之后依次加入就行了。假如新加入的平面会覆盖前两个向量的交点，那么它一定会覆盖掉前一条边界（因为之前按夹角排过序了）。<br><a id="more"></a><br>模板：<br><a href="http://poj.org/problem?id=2451" target="_blank" rel="external">poj2451</a><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> eps <span class="number">1e-8</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">20010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,top,bot,tot;</span><br><span class="line"><span class="keyword">struct</span> P&#123;</span><br><span class="line">	<span class="keyword">double</span> x,y;</span><br><span class="line">&#125;a[<span class="number">20005</span>];</span><br><span class="line"><span class="keyword">struct</span> L&#123;</span><br><span class="line">	P a,b;<span class="keyword">double</span> angle;</span><br><span class="line">&#125;l[<span class="number">20005</span>],q[<span class="number">20005</span>];</span><br><span class="line">P <span class="keyword">operator</span> -(P a,P b)</span><br><span class="line">&#123;</span><br><span class="line">	a.x-=b.x;a.y-=b.y;</span><br><span class="line">	<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">double</span> <span class="keyword">operator</span>*(P a,P b)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> (a.x*b.y)-(a.y*b.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt;(L a,L b)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.angle==b.angle) <span class="keyword">return</span> (b.b-a.a)*(b.a-a.a)&gt;<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> a.angle&lt;b.angle;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">P <span class="title">inter</span><span class="params">(L a,L b)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> k1,k2,t;</span><br><span class="line">	k1=(a.b-b.a)*(b.b-b.a);</span><br><span class="line">	k2=(b.b-b.a)*(a.a-b.a);</span><br><span class="line">	t=k1/(k1+k2);</span><br><span class="line">	P ans;</span><br><span class="line">	ans.x=a.b.x+(a.a.x-a.b.x)*t;</span><br><span class="line">	ans.y=a.b.y+(a.a.y-a.b.y)*t;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">jud</span><span class="params">(L a,L b,L t)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	P p=inter(a,b);</span><br><span class="line">	<span class="keyword">return</span> (t.a-p)*(t.b-p)&lt;<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hpi</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	sort(l+<span class="number">1</span>,l+n+<span class="number">1</span>);</span><br><span class="line">	top=<span class="number">1</span>;bot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(l[i].angle!=l[i-<span class="number">1</span>].angle) ++tot;</span><br><span class="line">		l[tot]=l[i];</span><br><span class="line">	&#125;</span><br><span class="line">	n=tot;q[<span class="number">0</span>]=l[<span class="number">1</span>];q[<span class="number">1</span>]=l[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=n;++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span>(bot&lt;<span class="function">top&amp;&amp;<span class="title">jud</span><span class="params">(q[top],q[top-<span class="number">1</span>],l[i])</span>) top--</span>; </span><br><span class="line">		<span class="keyword">while</span>(bot&lt;<span class="function">top&amp;&amp;<span class="title">jud</span><span class="params">(q[bot],q[bot+<span class="number">1</span>],l[i])</span>) bot++</span>;</span><br><span class="line">		q[++top]=l[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(bot&lt;<span class="function">top&amp;&amp;<span class="title">jud</span><span class="params">(q[top],q[top-<span class="number">1</span>],q[bot])</span>) top--</span>; </span><br><span class="line">	<span class="keyword">while</span>(bot&lt;<span class="function">top&amp;&amp;<span class="title">jud</span><span class="params">(q[bot],q[bot+<span class="number">1</span>],q[top])</span>) bot++</span>;</span><br><span class="line">	q[top+<span class="number">1</span>]=q[bot];tot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=bot;i&lt;=top;++i)</span><br><span class="line">		a[++tot]=inter(q[i],q[i+<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">double</span> area;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getarea</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tot&lt;<span class="number">3</span>) <span class="keyword">return</span> ;</span><br><span class="line">	a[++tot]=a[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">		area+=a[i]*a[i+<span class="number">1</span>];</span><br><span class="line">	area=<span class="built_in">fabs</span>(area)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("1.txt","r",stdin);</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lf%lf%lf%lf"</span>,&amp;l[i].a.x,&amp;l[i].a.y,&amp;l[i].b.x,&amp;l[i].b.y);</span><br><span class="line">	l[++n].a.x=<span class="number">0</span>;l[n].a.y=<span class="number">0</span> ;l[n].b.x=<span class="number">10000</span>;l[n].b.y=<span class="number">0</span>;</span><br><span class="line">	l[++n].a.x=<span class="number">10000</span>;l[n].a.y=<span class="number">0</span>;l[n].b.x=<span class="number">10000</span>;l[n].b.y=<span class="number">10000</span>;</span><br><span class="line">	l[++n].a.x=<span class="number">10000</span>;l[n].a.y=<span class="number">10000</span>;l[n].b.x=<span class="number">0</span>;l[n].b.y=<span class="number">10000</span>;</span><br><span class="line">	l[++n].a.x=<span class="number">0</span>;l[n].a.y=<span class="number">10000</span>;l[n].b.x=<span class="number">0</span>;l[n].b.y=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">		l[i].angle=<span class="built_in">atan2</span>((l[i].b.y-l[i].a.y),(l[i].b.x-l[i].a.x));</span><br><span class="line">	hpi();	</span><br><span class="line">	getarea();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.1lf"</span>,area);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/06/凸包/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">凸包什么的</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="半平面交" data-title="" data-url="http://yoursite.com/2016/03/07/半平面交/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"suigithub"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 sui
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
